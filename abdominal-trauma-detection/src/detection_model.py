@@ -3,6 +3,10 @@ Detection model implementation using YOLOv8.
 Detects trauma regions in abdominal CT scans.
 """
 
+import sys
+import os
+sys.path.insert(0, os.path.dirname(__file__))
+
 import torch
 import numpy as np
 from typing import List, Tuple, Optional, Dict

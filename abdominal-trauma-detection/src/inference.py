@@ -3,6 +3,10 @@ Inference pipeline for complete trauma detection workflow.
 Combines segmentation and detection models.
 """
 
+import sys
+import os
+sys.path.insert(0, os.path.dirname(__file__))
+
 import torch
 import numpy as np
 import cv2

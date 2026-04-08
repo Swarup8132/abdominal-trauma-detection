@@ -3,6 +3,9 @@ Dataset loading and preprocessing utilities for Abdominal Trauma Detection.
 Handles DICOM file loading, conversion, and data streaming without local storage.
 """
 
+import sys
+sys.path.insert(0, os.path.dirname(__file__))
+
 import os
 import numpy as np
 import pydicom

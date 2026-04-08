@@ -3,6 +3,10 @@ Segmentation model implementation using MONAI.
 Implements Swin-UNet for organ segmentation (liver, spleen, kidney, bowel).
 """
 
+import sys
+import os
+sys.path.insert(0, os.path.dirname(__file__))
+
 import torch
 import torch.nn as nn
 from monai.networks.nets import SwinUNETR

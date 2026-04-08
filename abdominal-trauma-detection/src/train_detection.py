@@ -2,6 +2,10 @@
 Training script for trauma detection model using YOLOv8.
 """
 
+import sys
+import os
+sys.path.insert(0, os.path.dirname(__file__))
+
 import argparse
 from pathlib import Path
 import yaml

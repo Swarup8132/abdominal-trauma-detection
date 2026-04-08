@@ -3,6 +3,10 @@ Training script for organ segmentation model.
 Trains Swin-UNet for liver, spleen, kidney, and bowel segmentation.
 """
 
+import sys
+import os
+sys.path.insert(0, os.path.dirname(__file__))
+
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
