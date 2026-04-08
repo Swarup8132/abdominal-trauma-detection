@@ -1,0 +1,101 @@
+# Detection Model Configuration (YOLOv8)
+
+# Dataset
+dataset:
+  name: "RSNA Abdominal Trauma Detection"
+  yaml_path: "data/trauma_detection.yaml"  # Path to dataset YAML
+  images_dir: "data/images"
+  labels_dir: "data/labels"
+
+# Training parameters
+training:
+  epochs: 100
+  batch_size: 16
+  img_size: 640
+  learning_rate: 0.001
+  momentum: 0.937
+  weight_decay: 0.0005
+  warmup_epochs: 3
+  warmup_momentum: 0.8
+  
+  # Optimizer
+  optimizer: "sgd"  # sgd, adam, adamw
+  
+  # Learning rate scheduler
+  scheduler: "cosine"  # cosine, linear, exponential
+  
+  # Data splitting
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  
+  # Augmentation
+  augmentation:
+    hsv_h: 0.015  # HSV-Hue augmentation
+    hsv_s: 0.7    # HSV-Saturation augmentation
+    hsv_v: 0.4    # HSV-Value augmentation
+    degrees: 10   # Rotation
+    translate: 0.1
+    scale: 0.5
+    flipud: 0.0
+    fliplr: 0.5
+    perspective: 0.0
+    mosaic: 1.0
+    mixup: 0.0
+    copy_paste: 0.0
+
+# Model
+model:
+  name: "yolov8m"  # n, s, m, l, x
+  num_classes: 5
+  class_names:
+    - "liver_injury"
+    - "spleen_injury"
+    - "kidney_injury"
+    - "bowel_injury"
+    - "active_bleed"
+
+# Inference
+inference:
+  confidence_threshold: 0.5
+  iou_threshold: 0.45
+  max_detections: 300
+
+# Validation
+validation:
+  interval: 1  # Validate every N epochs
+  save_json: true
+  plots: true
+
+# Checkpointing
+checkpoint:
+  save_interval: 10
+  keep_best: true
+  resume_dir: null
+
+# Device and resources
+device: "cuda"
+workers: 4
+mixed_precision: true
+cache: false
+
+# Logging
+logging:
+  level: "INFO"
+  save_dir: "./runs/detect"
+  save_plots: true
+  save_conf_matrix: true
+
+# Early stopping
+early_stopping:
+  enabled: true
+  patience: 20
+  metric: "mAP"
+
+# Export
+export:
+  formats:
+    - "onnx"
+    - "torchscript"
+  opset: 17
+  simplify: true

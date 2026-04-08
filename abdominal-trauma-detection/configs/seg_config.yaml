@@ -1,0 +1,67 @@
+# Segmentation Model Configuration
+
+# Dataset paths (for local training)
+images_dir: "data/images"
+masks_dir: "data/masks"
+
+# Training parameters
+training:
+  epochs: 100
+  batch_size: 8
+  learning_rate: 0.001
+  warmup_epochs: 5
+  weight_decay: 0.0001
+  num_workers: 4
+  
+  # Data splitting
+  train_split: 0.8
+  val_split: 0.2
+  
+  # Optimization
+  optimizer: "adam"
+  scheduler: "reduce_lr_on_plateau"
+  scheduler_patience: 5
+  scheduler_factor: 0.5
+  
+  # Checkpointing
+  save_interval: 10
+  early_stopping_patience: 20
+
+# Model architecture
+model:
+  name: "swin_unet"
+  in_channels: 3
+  out_channels: 4  # liver, spleen, kidney, bowel
+  img_size: [256, 256]
+  feature_size: 24
+  use_checkpoint: false
+  
+# Loss and metrics
+loss:
+  name: "dice_loss"
+  to_onehot_y: true
+  softmax: true
+
+metrics:
+  - name: "dice_metric"
+    include_background: false
+    reduction: "mean"
+
+# Data augmentation
+augmentation:
+  enabled: true
+  rotation: 15
+  flip_probability: 0.5
+  brightness: 0.2
+  contrast: 0.2
+  elastic_deformation: false
+
+# Logging
+logging:
+  log_interval: 50
+  save_tensorboard: true
+  tensorboard_dir: "./runs/segmentation"
+
+# Device
+device: "cuda"
+mixed_precision: false
